@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="group.lovelymen.dao.UserDetailsMapper">
+  <resultMap id="BaseResultMap" type="group.lovelymen.entity.UserDetails">
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="TREE_HOLE_ID" jdbcType="VARCHAR" property="treeHoleId" />
+    <result column="PASSWORD" jdbcType="VARCHAR" property="password" />
+    <result column="PORTRAIT_IMAGE" jdbcType="VARCHAR" property="portraitImage" />
+    <result column="SEX" jdbcType="CHAR" property="sex" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, TREE_HOLE_ID, PASSWORD, PORTRAIT_IMAGE, SEX
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user_details
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from user_details
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="group.lovelymen.entity.UserDetails">
+    insert into user_details (ID, TREE_HOLE_ID, PASSWORD, 
+      PORTRAIT_IMAGE, SEX)
+    values (#{id,jdbcType=BIGINT}, #{treeHoleId,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{portraitImage,jdbcType=VARCHAR}, #{sex,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="group.lovelymen.entity.UserDetails">
+    insert into user_details
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="treeHoleId != null">
+        TREE_HOLE_ID,
+      </if>
+      <if test="password != null">
+        PASSWORD,
+      </if>
+      <if test="portraitImage != null">
+        PORTRAIT_IMAGE,
+      </if>
+      <if test="sex != null">
+        SEX,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="treeHoleId != null">
+        #{treeHoleId,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="portraitImage != null">
+        #{portraitImage,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="group.lovelymen.entity.UserDetails">
+    update user_details
+    <set>
+      <if test="treeHoleId != null">
+        TREE_HOLE_ID = #{treeHoleId,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        PASSWORD = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="portraitImage != null">
+        PORTRAIT_IMAGE = #{portraitImage,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        SEX = #{sex,jdbcType=CHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="group.lovelymen.entity.UserDetails">
+    update user_details
+    set TREE_HOLE_ID = #{treeHoleId,jdbcType=VARCHAR},
+      PASSWORD = #{password,jdbcType=VARCHAR},
+      PORTRAIT_IMAGE = #{portraitImage,jdbcType=VARCHAR},
+      SEX = #{sex,jdbcType=CHAR}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
